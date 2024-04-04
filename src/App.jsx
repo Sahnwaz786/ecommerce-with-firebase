@@ -11,6 +11,8 @@ import Signup from './components/register/Signup'
 import ProductInfo from './components/productInfo/ProductInfo'
 import AddProduct from './pages/admin/page/AddProduct'
 import UpdateProduct from './pages/admin/page/UpdateProduct'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 function App() {
@@ -34,6 +36,7 @@ function App() {
 
 
       </Routes>
+      <ToastContainer/>
     </Router>
     </MyState>
    
