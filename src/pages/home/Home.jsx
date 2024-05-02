@@ -22,14 +22,14 @@ const Home = () => {
   };
   return (
     <Layout>
-      <div className="flex justify-center gap-5">
+      {/* <div className="flex justify-center gap-5">
         <button className="bg-gray-300 p-4 " onClick={() => addCart()}>
           Add
         </button>
         <button className="bg-gray-300 p-4" onClick={() => deleteCart()}>
           Delete
         </button>
-      </div>
+      </div> */}
       <HeroSection />
       <Filter />
       <ProductCard />

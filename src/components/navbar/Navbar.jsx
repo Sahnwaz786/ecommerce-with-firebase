@@ -10,8 +10,15 @@ const Navbar = () => {
   const context = useContext(MyContext);
   const { mode, toggleMode } = context;
   const [open, setOpen] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
+
+  const logout = () => {
+    localStorage.clear("user");
+    window.location.href = "/login";
+  };
   return (
-    
     <div className="bg-white sticky top-0 z-50">
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -63,32 +70,35 @@ const Navbar = () => {
                     All Products
                   </Link>
                   <div className="flow-root">
-                    <Link
+                    {user ? <Link
                       to={"/order"}
                       style={{ color: mode === "dark" ? "white" : "" }}
                       className="-m-2 block p-2 font-medium text-gray-900"
                     >
                       Order
-                    </Link>
+                    </Link>:""}
                   </div>
 
                   <div className="flow-root">
-                    <Link
-                      to={"/dashboard"}
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      admin
-                    </Link>
+                    {user?.user?.email === "mdsahnwazalam48@gmail.com" ? 
+                      <Link
+                        to={"/dashboard"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        admin
+                      </Link>:""}
                   </div>
 
                   <div className="flow-root">
-                    <a
-                      className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      Logout
-                    </a>
+                    {user ? 
+                      <a
+                        onClick={logout}
+                        className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        Logout
+                      </a>: "" }
                   </div>
                   <div className="flow-root">
                     <Link
@@ -195,27 +205,37 @@ const Navbar = () => {
                   >
                     All Products
                   </Link>
+                 {user ?  
                   <Link
                     to={"/order"}
                     className="text-sm font-medium text-gray-700 "
                     style={{ color: mode === "dark" ? "white" : "" }}
                   >
                     Order
-                  </Link>
-                  <Link
-                    to={"/dashboard"}
-                    className="text-sm font-medium text-gray-700 "
-                    style={{ color: mode === "dark" ? "white" : "" }}
-                  >
-                    Admin
-                  </Link>
+                  </Link> : ""}
+                  {user?.user?.email === "mdsahnwazalam48@gmail.com" ? (
+                    <Link
+                      to={"/dashboard"}
+                      className="text-sm font-medium text-gray-700 "
+                      style={{ color: mode === "dark" ? "white" : "" }}
+                    >
+                      Admin
+                    </Link>
+                  ) : (
+                    ""
+                  )}
 
-                  <a
-                    className="text-sm font-medium text-gray-700 cursor-pointer  "
-                    style={{ color: mode === "dark" ? "white" : "" }}
-                  >
-                    Logout
-                  </a>
+                  {user ? (
+                    <a
+                      onClick={logout}
+                      className="text-sm font-medium text-gray-700 cursor-pointer  "
+                      style={{ color: mode === "dark" ? "white" : "" }}
+                    >
+                      Logout
+                    </a>
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
@@ -244,13 +264,12 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex lg:ml-6">
-                  <button className='' onClick={toggleMode}>
-                    
-                    {mode === 'light' ?
-                      (<FiSun className='' size={30} />
-                      ) : 
-                        (<BsFillCloudSunFill size={30} />
-                        ) }
+                  <button className="" onClick={toggleMode}>
+                    {mode === "light" ? (
+                      <FiSun className="" size={30} />
+                    ) : (
+                      <BsFillCloudSunFill size={30} />
+                    )}
                   </button>
                 </div>
 
